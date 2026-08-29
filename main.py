@@ -1,3 +1,4 @@
+
 # Import metric collection and threshold checking functions from the metrics module
 from metrics import get_system_metrics, check_thresholds
 
@@ -27,4 +28,3 @@ def run_daemon():
 if __name__ == "__main__":
     # Call the main daemon monitoring function
     run_daemon()
-

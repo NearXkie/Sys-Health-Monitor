@@ -1,11 +1,9 @@
 # Import psutil library to access system hardware metrics
 import psutil
 
-# Maximum allowable CPU utilization percentage
+# Maximum allowable CPU, RAM, Disk utilization percentage
 CPU_THRESHOLD = 70
-# Maximum allowable RAM utilization percentage
 RAM_THRESHOLD = 70
-# Maximum allowable Disk utilization percentage
 DISK_THRESHOLD = 85
 
 
@@ -14,9 +12,11 @@ def get_system_metrics():
     """Retrieves current CPU, memory usage, and disk space."""
     # Return dictionary with current CPU, RAM, and Disk utilization percentages
     return {
-        'CPU': psutil.cpu_percent(interval=1),  # Measure CPU utilization over a 1-second window
+        # Measure CPU utilization over a 1-second window
+        'CPU': psutil.cpu_percent(interval=1),
         'RAM': psutil.virtual_memory().percent,  # Get current RAM usage percentage
-        'Disk': psutil.disk_usage('/').percent   # Get root drive disk usage percentage
+        # Get root drive disk usage percentage
+        'Disk': psutil.disk_usage('/').percent
     }
 
 
@@ -27,16 +27,18 @@ def check_thresholds(metrics):
 
     # Check if CPU usage exceeds the defined threshold
     if metrics['CPU'] > CPU_THRESHOLD:
-        alerts.append(f"CPU ALERT: {metrics['CPU']}%")  # Record CPU breach alert
+        # Record CPU breach alert
+        alerts.append(f"CPU ALERT: {metrics['CPU']}%")
 
     # Check if RAM usage exceeds the defined threshold
     if metrics['RAM'] > RAM_THRESHOLD:
-        alerts.append(f"RAM ALERT: {metrics['RAM']}%")  # Record RAM breach alert
+        # Record RAM breach alert
+        alerts.append(f"RAM ALERT: {metrics['RAM']}%")
 
     # Check if Disk usage exceeds the defined threshold
     if metrics['Disk'] > DISK_THRESHOLD:
-        alerts.append(f"DISK ALERT: {metrics['Disk']}%")  # Record Disk breach alert
+        # Record Disk breach alert
+        alerts.append(f"DISK ALERT: {metrics['Disk']}%")
 
     # Return breach status boolean (True if alerts exist) and the list of alerts
     return bool(alerts), alerts
-
