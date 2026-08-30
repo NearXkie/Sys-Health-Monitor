@@ -38,7 +38,7 @@
 ###  OUT OF SCOPE (Future Scope/Expansion of Scope)
 
 ##### - Phase 4: System Tray Notifications
-    - Set up a minimal UI with tkinter for basic system tray integration
+    - Set up a minimal UI with plyer for a basic notification
     - Trigger a subtle popup or system notification when a threshold is breached
     - Add an exit listener to cleanly shut down the daemon
 

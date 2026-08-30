@@ -1,10 +1,7 @@
 import logging
 import time
-from win10toast import ToastNotifier
+from plyer import notification  # false alarm
 from metrics import get_system_metrics, check_thresholds
-
-# Initialize the Windows native notifier
-toaster = ToastNotifier()
 
 logging.basicConfig(
     filename='health_daemon.log',
@@ -14,7 +11,7 @@ logging.basicConfig(
 )
 
 
-def run_daemon(poll_interval=5):
+def run_daemon(poll_interval=60):
     logging.info("System Health Daemon initialized.")
     print(
         f"Daemon running. Polling every {poll_interval}s. Press Ctrl+C to stop.")
@@ -51,4 +48,4 @@ def run_daemon(poll_interval=5):
 
 
 if __name__ == "__main__":
-    run_daemon(poll_interval=3)
+    run_daemon(poll_interval=60)
