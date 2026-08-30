@@ -1,6 +1,10 @@
 import logging
 import time
+from win10toast import ToastNotifier
 from metrics import get_system_metrics, check_thresholds
+
+# Initialize the Windows native notifier
+toaster = ToastNotifier()
 
 logging.basicConfig(
     filename='health_daemon.log',
@@ -24,6 +28,14 @@ def run_daemon(poll_interval=5):
                 warning_msg = f"Threshold breached: {', '.join(alerts)}"
                 print(f"[ALERT] {warning_msg}")
                 logging.warning(warning_msg)
+
+                # Trigger the modern headless OS popup
+                notification.notify(
+                    title="SysOps Health Alert",
+                    message=warning_msg,
+                    app_name="Health Daemon",
+                    timeout=5
+                )
             else:
                 logging.info(f"System healthy: {metrics}")
 
