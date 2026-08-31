@@ -1,14 +1,9 @@
-import logging
 import time
-from plyer import notification  # false alarm
+import logging
 from metrics import get_system_metrics, check_thresholds
+from notifier import dispatch_alerts
 
-logging.basicConfig(
-    filename='health_daemon.log',
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S'
-)
+# ... keep your existing logging.basicConfig setup ...
 
 
 def run_daemon(poll_interval=60):
@@ -26,17 +21,14 @@ def run_daemon(poll_interval=60):
                 print(f"[ALERT] {warning_msg}")
                 logging.warning(warning_msg)
 
-                # Trigger the modern headless OS popup
-                notification.notify(
-                    title="SysOps Health Alert",
-                    message=warning_msg,
-                    app_name="Health Daemon",
-                    timeout=5
-                )
+                # Clean, single function call handles all notification routing
+                dispatch_alerts(warning_msg)
             else:
                 logging.info(f"System healthy: {metrics}")
 
             time.sleep(poll_interval)
+
+    # ... keep your existing exception handling ...
 
     except KeyboardInterrupt:
         print("\nShutdown signal received. Stopping daemon cleanly...")
