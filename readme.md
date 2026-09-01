@@ -33,19 +33,15 @@
     - Wrap extraction and validation steps inside a central orchestrator function
     - Run the orchestrator inside infinite loop, using try/ except block to handle any unexpected crashes.
 
----
-
-###  OUT OF SCOPE (Future Scope/Expansion of Scope)
-
 ##### - Phase 4: System Tray Notifications
     - Set up a minimal UI with plyer for a basic notification
     - Trigger a subtle popup or system notification when a threshold is breached
     - Add an exit listener to cleanly shut down the daemon
 
 ##### - Phase 5: External Notifications (Email/SMS)
-    - Integrate SMTP (Email) and Twilio (SMS) for remote alerting
-    - Create fallback logic: If Email fails, attempt SMS.
-    - Ensure API keys and credentials are handled securely (using environment variables or a config file)
+    - Used ntfy for mobile notifications
+---
+###  OUT OF SCOPE (Future Scope/Expansion of Scope)
 
 ##### - Phase 6: Health Check Endpoint
     - Create a small Flask or FastAPI web server to expose health_status on an HTTP endpoint

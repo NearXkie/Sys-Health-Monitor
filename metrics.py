@@ -2,8 +2,8 @@
 import psutil
 
 # Maximum allowable CPU, RAM, Disk utilization percentage
-CPU_THRESHOLD = 70
-RAM_THRESHOLD = 70
+CPU_THRESHOLD = 80
+RAM_THRESHOLD = 80
 DISK_THRESHOLD = 85
 
 

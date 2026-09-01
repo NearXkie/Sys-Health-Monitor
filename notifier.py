@@ -1,6 +1,6 @@
 
 
-import logging
+import requests
 from plyer import notification  # false alarm
 
 
@@ -13,16 +13,18 @@ def trigger_os_popup(message):
     )
 
 
-def send_email_alert(message):
-    # Phase 5 SMTP logic goes here
-    pass
+def send_ntfy_alert(message):
+    # Ensure this URL is exact, with no trailing slashes
+    url = "https://ntfy.sh/nirmals_health_monitor_x932"
 
+    # Capture the server's response
+    response = requests.post(url, data=message.encode(encoding='utf-8'))
 
-def send_sms_alert(message):
-    # Phase 5 Twilio logic goes here
-    pass
+    # Print the exact HTTP status code and server error text
+    print(
+        f"[NETWORK DEBUG] Status: {response.status_code} | Reply: {response.text}")
 
 
 def dispatch_alerts(message):
     trigger_os_popup(message)
-    # Phase 5: Add fallback logic here (e.g., if email fails, try SMS)
+    send_ntfy_alert(message)
