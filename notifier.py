@@ -1,28 +1,28 @@
-
-
 import requests
-from plyer import notification  # false alarm
+from plyer import notification
 
 
 def trigger_os_popup(message):
-    notification.notify(
-        title="SysOps Health Alert",
-        message=message,
-        app_name="Health Daemon",
-        timeout=5
-    )
+    try:
+        notification.notify(
+            title="SysOps Health Alert",
+            message=message,
+            app_name="Health Daemon",
+            timeout=5
+        )
+    except Exception as error:
+        print(f"[POPUP ERROR] {error}")
 
 
 def send_ntfy_alert(message):
-    # Ensure this URL is exact, with no trailing slashes
     url = "https://ntfy.sh/nirmals_health_monitor_x932"
-
-    # Capture the server's response
-    response = requests.post(url, data=message.encode(encoding='utf-8'))
-
-    # Print the exact HTTP status code and server error text
-    print(
-        f"[NETWORK DEBUG] Status: {response.status_code} | Reply: {response.text}")
+    try:
+        response = requests.post(
+            url, data=message.encode(encoding='utf-8'), timeout=5)
+        print(
+            f"[NETWORK DEBUG] Status: {response.status_code} | Reply: {response.text}")
+    except requests.exceptions.RequestException as error:
+        print(f"[NETWORK ERROR] Alert delivery failed: {error}")
 
 
 def dispatch_alerts(message):

@@ -4,7 +4,7 @@
 > Check CPU, RAM and Disk Metrics 
 
 ---
-## Architectur
+## Architecture
 ---
 
 ### - Core Library: psutil (Python System and Process Utilities)
